@@ -15,12 +15,15 @@ public class GameManager : MonoBehaviour
 
     public CursorState CurrentCursorState { get; private set; }
 
+    public bool IsGamePaused { get; private set; }
+
     private void Awake()
     {
         #region Singleton
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(Instance.gameObject);
+            Instance = this;
         }
         else
         {
@@ -34,6 +37,12 @@ public class GameManager : MonoBehaviour
     public void SetCurrentCursorState(CursorState state)
     {
         CurrentCursorState = state;
+    }
+
+    public void PauseGame(bool pause)
+    {
+        IsGamePaused = pause;
+        Time.timeScale = pause ? 0f : 1f;
     }
 }
 
