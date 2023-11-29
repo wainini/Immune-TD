@@ -35,8 +35,13 @@ public class Unit : MonoBehaviour
 
     private void DeployUnit()
     {
-        IsFollowingCursor = false;
-        Vector2 deployPosition = PlotManager.Instance.CurrentSelectedPlot.transform.position;
+        SelectablePlot plot = PlotManager.Instance.CurrentSelectedPlot;
+        if (plot.IsOccupied) return;
+
+        Vector2 deployPosition = plot.transform.position;
         this.transform.position = deployPosition;
+        IsFollowingCursor = false;
+
+        plot.SetUnit(this);
     }
 }

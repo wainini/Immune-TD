@@ -9,6 +9,10 @@ public class SelectablePlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private Color hoverColor;
     private Color normalColor;
 
+    private Unit unitOnPlot;
+
+    public bool IsOccupied => unitOnPlot != null;
+
     private void Start()
     {
         normalColor = sr.color;
@@ -31,5 +35,15 @@ public class SelectablePlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         if(PlotManager.Instance.CurrentSelectedPlot == this)
             PlotManager.Instance.SetCurrentSelectedPlot(null);
+    }
+
+    public void SetUnit(Unit unit)
+    {
+        unitOnPlot = unit;
+    }
+
+    public void RemoveUnit()
+    {
+        unitOnPlot = null;
     }
 }
