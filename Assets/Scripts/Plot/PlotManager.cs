@@ -9,6 +9,8 @@ public class PlotManager : MonoBehaviour
     [SerializeField] private GameObject plotPrefab;
     [SerializeField] private Vector3 tileOffset;
 
+    [SerializeField] private Transform plotsParent;
+
     private void Start()
     {
         InitializePlot();
@@ -23,7 +25,7 @@ public class PlotManager : MonoBehaviour
             if (tilemap.HasTile(pos))
             {
                 Vector3 tileCenter = place + tileOffset;
-                Instantiate(plotPrefab, tileCenter, Quaternion.identity);
+                Instantiate(plotPrefab, tileCenter, Quaternion.identity, plotsParent);
             }
         }
 
