@@ -16,11 +16,13 @@ public class SelectablePlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (GameManager.Instance.CurrentCursorState != CursorState.SelectPlot) return;
         sr.color = hoverColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (GameManager.Instance.CurrentCursorState != CursorState.SelectPlot) return;
         sr.color = normalColor;
     }
 }
