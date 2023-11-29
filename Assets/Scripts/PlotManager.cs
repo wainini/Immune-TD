@@ -11,7 +11,12 @@ public class PlotManager : MonoBehaviour
 
     private void Start()
     {
-        foreach(var pos in tilemap.cellBounds.allPositionsWithin)
+        InitializePlot();
+    }
+
+    private void InitializePlot()
+    {
+        foreach (var pos in tilemap.cellBounds.allPositionsWithin)
         {
             tilemap.GetTile(pos);
             Vector3 place = tilemap.CellToWorld(pos);
