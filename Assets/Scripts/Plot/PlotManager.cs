@@ -5,11 +5,30 @@ using UnityEngine.Tilemaps;
 
 public class PlotManager : MonoBehaviour
 {
+    public static PlotManager Instance;
+
     [SerializeField] private Tilemap tilemap;
-    [SerializeField] private GameObject plotPrefab;
+    [SerializeField] private SelectablePlot plotPrefab;
     [SerializeField] private Vector3 tileOffset;
 
     [SerializeField] private Transform plotsParent;
+
+    public SelectablePlot CurrentSelectedPlot { get; private set; }
+
+    private void Awake()
+    {
+        #region Singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+        }
+        else
+        {
+            Instance = this;
+        }
+        #endregion
+    }
 
     private void Start()
     {
@@ -30,5 +49,10 @@ public class PlotManager : MonoBehaviour
         }
 
         tilemap.gameObject.SetActive(false);
+    }
+
+    public void SetCurrentSelectedPlot(SelectablePlot currentSelectedPlot)
+    {
+        CurrentSelectedPlot = currentSelectedPlot;
     }
 }

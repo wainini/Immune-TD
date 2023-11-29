@@ -18,6 +18,10 @@ public class Unit : MonoBehaviour
         if (IsFollowingCursor)
         {
             FollowCursor();
+            if(Input.GetMouseButtonDown(0))
+            {
+                DeployUnit();
+            }
             return;
         }
     }
@@ -27,5 +31,12 @@ public class Unit : MonoBehaviour
         Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z += mainCam.nearClipPlane;
         this.transform.position = mousePosition;
+    }
+
+    private void DeployUnit()
+    {
+        IsFollowingCursor = false;
+        Vector2 deployPosition = PlotManager.Instance.CurrentSelectedPlot.transform.position;
+        this.transform.position = deployPosition;
     }
 }
