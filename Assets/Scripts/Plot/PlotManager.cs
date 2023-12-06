@@ -5,8 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class PlotManager : MonoBehaviour
 {
-    public static PlotManager Instance;
-
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private SelectablePlot plotPrefab;
     [SerializeField] private Vector3 tileOffset;
@@ -15,27 +13,12 @@ public class PlotManager : MonoBehaviour
 
     public SelectablePlot CurrentSelectedPlot { get; private set; }
 
-    private void Awake()
-    {
-        #region Singleton
-        if (Instance != null && Instance != this)
-        {
-            Destroy(Instance.gameObject);
-            Instance = this;
-        }
-        else
-        {
-            Instance = this;
-        }
-        #endregion
-    }
-
     private void Start()
     {
-        InitializePlot();
+        InitializePlots();
     }
 
-    private void InitializePlot()
+    private void InitializePlots()
     {
         foreach (var pos in tilemap.cellBounds.allPositionsWithin)
         {
@@ -44,7 +27,8 @@ public class PlotManager : MonoBehaviour
             if (tilemap.HasTile(pos))
             {
                 Vector3 tileCenter = place + tileOffset;
-                Instantiate(plotPrefab, tileCenter, Quaternion.identity, plotsParent);
+                SelectablePlot p = Instantiate(plotPrefab, tileCenter, Quaternion.identity, plotsParent);
+                p.InitializePlot(this);
             }
         }
 

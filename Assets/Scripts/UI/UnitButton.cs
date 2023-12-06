@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class UnitButton : MonoBehaviour
 {
-    public void InitializeUnitButton(Unit unitToSpawn, UnitButtonHandler handler)
+    public void InitializeUnitButton(Unit unitToSpawn, ImmuneUnitDeployment handler)
     {
         Button buttonComponent = GetComponent<Button>();
 
         buttonComponent.onClick.AddListener(() =>
         {
-            handler.DeployUnit(unitToSpawn);
+            handler.InstantiateUnit(unitToSpawn);
         });
     }
 }
