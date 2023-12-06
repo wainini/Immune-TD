@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [field: SerializeField] public PlotManager plotManager { get; private set; }
+
     public CursorState CurrentCursorState { get; private set; }
 
     public bool IsGamePaused { get; private set; }

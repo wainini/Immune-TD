@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour
 
     private Stack<Menu> menuStack = new Stack<Menu>();
 
+    private List<Menu> gameHUD = new List<Menu>();
+
     private void Awake()
     {
         #region Singleton
@@ -44,17 +46,17 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (menuStack.Count == 0)
-            {
-                OpenMenu("PauseMenu");
-            }
-            else if (menuStack.Count != 0)
-            {
-                CloseMenu();
-            }
-        }
+        //if(Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.CurrentCursorState == CursorState.Default)
+        //{
+        //    if (menuStack.Count == 0)
+        //    {
+        //        OpenMenu("PauseMenu");
+        //    }
+        //    else if (menuStack.Count != 0)
+        //    {
+        //        CloseMenu();
+        //    }
+        //}
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
