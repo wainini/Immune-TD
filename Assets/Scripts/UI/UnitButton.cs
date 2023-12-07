@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UnitButton : MonoBehaviour
 {
-    public void InitializeUnitButton(Unit unitToSpawn, ImmuneUnitDeployment handler)
+    public void InitializeUnitButton(GameObject unitToSpawn, ImmuneUnitDeployment handler)
     {
         Button buttonComponent = GetComponent<Button>();
 

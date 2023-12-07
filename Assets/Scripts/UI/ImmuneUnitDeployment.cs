@@ -10,7 +10,7 @@ public class ImmuneUnitDeployment : MonoBehaviour
     [SerializeField] private GameObject unitButtonsGroup;
 
     //this list should be change to be from some other manager
-    [SerializeField] private List<Unit> unitsInLoadout;
+    [SerializeField] private List<GameObject> unitsInLoadout;
 
     private Unit UndeployedUnit;
     private Camera mainCam;
@@ -41,17 +41,18 @@ public class ImmuneUnitDeployment : MonoBehaviour
 
     private void InitializeUnitButtons()
     {
-        foreach (Unit unit in unitsInLoadout)
+        foreach (GameObject unit in unitsInLoadout)
         {
             UnitButton unitButton = Instantiate(unitButtonPrefab, unitButtonsGroup.transform);
+
             unitButton.InitializeUnitButton(unit, this);
         }
     }
 
-    public void InstantiateUnit(Unit unitToSpawn)
+    public void InstantiateUnit(GameObject unitToSpawn)
     {
         if (GameManager.Instance.CurrentCursorState == CursorState.SelectPlot) return;
-        Unit unit = Instantiate(unitToSpawn);
+        Unit unit = Instantiate(unitToSpawn).GetComponentInChildren<Unit>();
         EnterUnitDeployment(unit);
     }
 

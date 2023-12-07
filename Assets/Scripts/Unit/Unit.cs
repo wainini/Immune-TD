@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] private UnitDetection detection;
 
     private void Awake()
     {
-        detection.SetUnit(this);
     }
 
 }

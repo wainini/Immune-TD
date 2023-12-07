@@ -6,7 +6,7 @@ public class UnitDetection : MonoBehaviour
 {
     [field: SerializeField] public List<Unit> UnitsInRange { get; private set; } = new List<Unit>();
 
-    private Unit unit;
+    [SerializeField] private Unit unit;
 
     [SerializeField] private float detectionRadius = 1.5f;
     [SerializeField] private Vector2 detectionOffset = Vector2.zero;
@@ -32,12 +32,6 @@ public class UnitDetection : MonoBehaviour
             }
         }
         UnitsInRange = tempUnitsInRange;
-    }
-
-    public void SetUnit(Unit unit)
-    {
-        if(unit != null)
-            this.unit = unit;
     }
 
     private void OnDrawGizmos()
