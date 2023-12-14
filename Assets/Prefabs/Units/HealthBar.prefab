@@ -317,3 +317,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 0}
   barImage: {fileID: 7838511106784543160}
+  healthBar: {fileID: 5304581867713529702}
