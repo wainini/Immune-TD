@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 624391534565872}
   - component: {fileID: 8602537341439760078}
   m_Layer: 0
-  m_Name: DeployablePlot
+  m_Name: PlotGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 25a57a883f3bd6b448e4e91fd4a6d3e7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 8355726294412563633}
-  hoverColor: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
+  hoverColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
 --- !u!61 &8602537341439760078
 BoxCollider2D:
   m_ObjectHideFlags: 0

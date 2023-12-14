@@ -29,7 +29,6 @@ public class SelectablePlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerEnter(PointerEventData eventData)
     {
 
-        Debug.Log("hi");
         if (GameManager.Instance.CurrentCursorState != CursorState.SelectPlot) return;
 
         sr.color = hoverColor;
@@ -50,6 +49,7 @@ public class SelectablePlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void SetUnit(Unit unit)
     {
         unitOnPlot = unit;
+        sr.color = normalColor;
     }
 
     public void RemoveUnit()

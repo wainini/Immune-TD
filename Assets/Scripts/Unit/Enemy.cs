@@ -2,27 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyState
+{
+    Navigate,
+    Attack
+}
+
 public class Enemy : Unit
 {
-    [SerializeField] private List<Transform> waypoints = new List<Transform>();
+    [SerializeField] protected List<Transform> waypoints = new List<Transform>();
 
-    [SerializeField] private float moveDelta;
+    [SerializeField] protected Rigidbody2D rb;
 
-    [SerializeField] private Rigidbody2D rb;
+    protected EnemyState state;
 
-    private int currentWaypointIndex;
+    protected int currentWaypointIndex;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         currentWaypointIndex = 0;
+        state = EnemyState.Navigate;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        Vector2 newPos = Vector2.MoveTowards(this.transform.position, waypoints[currentWaypointIndex].position, moveDelta);
+        Move();
+    }
+
+    protected virtual void Move()
+    {
+        Vector2 newPos = Vector2.MoveTowards(this.transform.position, waypoints[currentWaypointIndex].position, stats.MoveSpeed);
         rb.MovePosition(newPos);
 
-        if(transform.position == waypoints[currentWaypointIndex].position)
+        if (transform.position == waypoints[currentWaypointIndex].position)
         {
             if (currentWaypointIndex == waypoints.Count - 1) return;
             currentWaypointIndex++;

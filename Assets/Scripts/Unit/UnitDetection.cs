@@ -42,11 +42,11 @@ public class UnitDetection : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        UnityEditor.Handles.color = Color.red;
+        UnityEditor.Handles.color = Color.green;
 
         UnityEditor.Handles.DrawWireDisc(this.transform.position + (Vector3)detectionOffset, Vector3.back, detectionRadius);
 
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.yellow;
 
         foreach(Unit u in UnitsInRange)
         {
