@@ -53,6 +53,7 @@ public class ImmuneUnitDeployment : MonoBehaviour
     {
         if (GameManager.Instance.CurrentCursorState == CursorState.SelectPlot) return;
         Unit unit = Instantiate(unitToSpawn).GetComponentInChildren<Unit>();
+        unit.DisableCollider();
         EnterUnitDeployment(unit);
     }
 
@@ -70,6 +71,7 @@ public class ImmuneUnitDeployment : MonoBehaviour
 
         Vector2 deployPosition = plot.transform.position;
         UndeployedUnit.transform.position = deployPosition;
+        UndeployedUnit.EnableCollider();
 
         plot.SetUnit(UndeployedUnit);
 

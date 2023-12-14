@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour
     public Action<int, int> OnHPChange;
 
     [SerializeField] protected UnitStats stats;
-
+    private Collider2D coll;
     protected int currentHP;
     public int CurrentHP { get { return currentHP; } protected set { currentHP = value; OnHPChange?.Invoke(currentHP, stats.MaxHP); } }
 
@@ -18,6 +18,17 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         CurrentHP = stats.MaxHP;
+        coll = GetComponent<Collider2D>();
+    }
+
+    public void EnableCollider()
+    {
+        coll.enabled = true;
+    }
+
+    public void DisableCollider()
+    {
+        coll.enabled = false;
     }
 
     public virtual void TakeDamage(int value)
