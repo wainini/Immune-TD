@@ -15,9 +15,9 @@ public class Unit : MonoBehaviour
     public int CurrentHP { get { return currentHP; } protected set { currentHP = value; OnHPChange?.Invoke(currentHP, stats.MaxHP); } }
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        CurrentHP = stats.MaxHP;
+        currentHP = stats.MaxHP;
         coll = GetComponent<Collider2D>();
     }
 

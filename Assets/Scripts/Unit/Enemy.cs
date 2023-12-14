@@ -18,8 +18,9 @@ public class Enemy : Unit
 
     protected int currentWaypointIndex;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         currentWaypointIndex = 0;
         state = EnemyState.Navigate;
     }

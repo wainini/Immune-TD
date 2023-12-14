@@ -2,42 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeEnemy : Enemy
+public class Neutrophil : ImmuneCell
 {
     [SerializeField] private UnitDetection unitDetection;
+
     private Unit currentTarget;
     private float currentAttackCooldown = 0;
 
     private void Update()
     {
-        Debug.Log(CurrentHP);
         SearchUnitToAttack();
     }
-
-    protected override void FixedUpdate()
+    private void FixedUpdate()
     {
         currentAttackCooldown -= Time.deltaTime;
 
-        switch(state)
+        if(currentTarget != null)
         {
-            case EnemyState.Attack:
-                AttackCurrentTarget();
-                break;
-            case EnemyState.Navigate:
-                Move();
-                break;
-            default:
-                Move();
-                break;
+            AttackCurrentTarget();
         }
     }
 
     private void AttackCurrentTarget()
     {
-        if (currentTarget == null) state = EnemyState.Navigate;
-
         if (currentAttackCooldown > 0) return;
-
+        Debug.Log(stats.Damage);
         currentTarget.TakeDamage(stats.Damage);
         currentAttackCooldown = stats.AttackCooldown;
     }
@@ -54,16 +43,15 @@ public class MeleeEnemy : Enemy
         {
             if (unit == null) continue;
 
-            if(Vector2.Distance(unit.transform.position, this.transform.position) < nearestDistance)
+            if (Vector2.Distance(unit.transform.position, this.transform.position) < nearestDistance)
             {
                 tempTarget = unit;
             }
         }
 
-        if(tempTarget != null)
+        if (tempTarget != null)
         {
             currentTarget = tempTarget;
-            state = EnemyState.Attack;
         }
     }
 }
