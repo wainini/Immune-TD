@@ -33,12 +33,13 @@ public class UnitDetection : MonoBehaviour
         }
         UnitsInRange = tempUnitsInRange;
     }
-
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (!lockGizmos) return;
         OnDrawGizmosSelected();
     }
+
 
     private void OnDrawGizmosSelected()
     {
@@ -53,4 +54,5 @@ public class UnitDetection : MonoBehaviour
             Gizmos.DrawRay(this.transform.position, u.transform.position - this.transform.position);
         }
     }
+#endif
 }

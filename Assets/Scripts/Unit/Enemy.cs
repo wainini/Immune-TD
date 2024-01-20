@@ -5,7 +5,8 @@ using UnityEngine;
 public enum EnemyState
 {
     Navigate,
-    Attack
+    Attack,
+    NotInitialized
 }
 
 public class Enemy : Unit
@@ -22,7 +23,7 @@ public class Enemy : Unit
     {
         base.Awake();
         currentWaypointIndex = 0;
-        state = EnemyState.Navigate;
+        state = EnemyState.NotInitialized;
     }
 
     protected virtual void FixedUpdate()
@@ -40,5 +41,16 @@ public class Enemy : Unit
             if (currentWaypointIndex == waypoints.Count - 1) return;
             currentWaypointIndex++;
         }
+    }
+
+    public void SetWaypoints(List<Transform> waypoints)
+    {
+        this.waypoints = waypoints;
+        state = EnemyState.Navigate;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        this.transform.position = position;
     }
 }

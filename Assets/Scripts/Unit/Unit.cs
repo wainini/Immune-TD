@@ -10,10 +10,11 @@ public class Unit : MonoBehaviour
     public Action<int, int> OnHPChange;
 
     [SerializeField] protected UnitStats stats;
-    private Collider2D coll;
+    protected Collider2D coll;
     protected int currentHP;
     public int CurrentHP { get { return currentHP; } protected set { currentHP = value; OnHPChange?.Invoke(currentHP, stats.MaxHP); } }
 
+    protected SelectablePlot plot;
 
     protected virtual void Awake()
     {
@@ -23,12 +24,14 @@ public class Unit : MonoBehaviour
 
     public void EnableCollider()
     {
-        coll.enabled = true;
+        if(coll != null)
+            coll.enabled = true;
     }
 
     public void DisableCollider()
     {
-        coll.enabled = false;
+        if (coll != null)
+            coll.enabled = false;
     }
 
     public virtual void TakeDamage(int value)
@@ -39,5 +42,10 @@ public class Unit : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void SetPlot(SelectablePlot plot)
+    {
+        this.plot = plot;
     }
 }

@@ -5,13 +5,13 @@ using UnityEngine.EventSystems;
 
 public class SelectablePlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private Color hoverColor;
-    private Color normalColor;
+    [SerializeField] protected SpriteRenderer sr;
+    [SerializeField] protected Color hoverColor;
+    protected Color normalColor;
 
-    private PlotManager plotManager;
+    protected PlotManager plotManager;
 
-    private Unit unitOnPlot;
+    protected Unit unitOnPlot;
 
     public bool IsOccupied => unitOnPlot != null;
 
@@ -19,26 +19,33 @@ public class SelectablePlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
     }
 
-    public void InitializePlot(PlotManager manager)
+    public virtual void InitializePlot(PlotManager manager)
     {
         plotManager = manager;
         normalColor = sr.color;
         unitOnPlot = null;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
-
-        if (GameManager.Instance.CurrentCursorState != CursorState.SelectPlot) return;
+        if (GameManager.Instance.CurrentCursorState != CursorState.SelectPlot)
+        {
+            sr.color = normalColor;
+            return;
+        }
 
         sr.color = hoverColor;
 
         plotManager.SetCurrentSelectedPlot(this);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
-        if (GameManager.Instance.CurrentCursorState != CursorState.SelectPlot) return;
+        if (GameManager.Instance.CurrentCursorState != CursorState.SelectPlot)
+        {
+            sr.color = normalColor;
+            return;
+        }
 
         sr.color = normalColor;
 

@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
+    [SerializeField] private Animator anim;
     [SerializeField] private UnitDetection unitDetection;
+    private SpriteRenderer sr;
+
+
     private Unit currentTarget;
     private float currentAttackCooldown = 0;
 
+    private void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
+
+
     private void Update()
     {
-        Debug.Log(CurrentHP);
         SearchUnitToAttack();
     }
 
@@ -38,6 +47,7 @@ public class MeleeEnemy : Enemy
 
         if (currentAttackCooldown > 0) return;
 
+        anim.SetTrigger("Attack");
         currentTarget.TakeDamage(stats.Damage);
         currentAttackCooldown = stats.AttackCooldown;
     }
@@ -52,7 +62,7 @@ public class MeleeEnemy : Enemy
 
         foreach (Unit unit in unitsInRange)
         {
-            if (unit == null) continue;
+            if (unit == null || unit is not ImmuneCell) continue;
 
             if(Vector2.Distance(unit.transform.position, this.transform.position) < nearestDistance)
             {
@@ -64,6 +74,15 @@ public class MeleeEnemy : Enemy
         {
             currentTarget = tempTarget;
             state = EnemyState.Attack;
+
+            if (tempTarget.transform.position.x < transform.position.x)
+            {
+                sr.flipX = true;
+            }
+            else if (tempTarget.transform.position.x > transform.position.x)
+            {
+                sr.flipX = false;
+            }
         }
     }
 }

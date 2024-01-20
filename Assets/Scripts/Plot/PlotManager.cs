@@ -5,8 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class PlotManager : MonoBehaviour
 {
-    [SerializeField] private Tilemap tilemapHigh, tilemapGround;
+    [SerializeField] private Tilemap tilemapHigh, tilemapGround, tilemapWound;
     [SerializeField] private SelectablePlot plotHighPrefab, plotGroundPrefab;
+    [SerializeField] private Wound woundPrefab;
     [SerializeField] private Vector3 tileOffset;
 
     [SerializeField] private Transform plotsParent;
@@ -45,6 +46,24 @@ public class PlotManager : MonoBehaviour
             }
         }
         tilemapGround.gameObject.SetActive(false);
+
+
+        EnemySpawner spawner = FindObjectOfType<EnemySpawner>();
+        foreach (var pos in tilemapWound.cellBounds.allPositionsWithin)
+        {
+            tilemapWound.GetTile(pos);
+            Vector3 place = tilemapWound.CellToWorld(pos);
+            if (tilemapWound.HasTile(pos))
+            {
+                Vector3 tileCenter = place + tileOffset;
+                SelectablePlot p = Instantiate(woundPrefab, tileCenter, Quaternion.identity, plotsParent);
+                p.InitializePlot(this);
+                spawner.AddSpawnPoint((Wound)p);
+                GameManager.Instance.AddWound((Wound)p);
+            }
+        }
+        tilemapWound.gameObject.SetActive(false);
+
     }
 
     public void SetCurrentSelectedPlot(SelectablePlot currentSelectedPlot)

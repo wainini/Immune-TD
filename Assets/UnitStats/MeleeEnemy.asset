@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd869d872004204ab5f79c94f3e4ff8, type: 3}
   m_Name: MeleeEnemy
   m_EditorClassIdentifier: 
-  MaxHP: 10
-  Damage: 5
+  MaxHP: 6
+  Damage: 2
   AttackCooldown: 0.5
   MoveSpeed: 0.02

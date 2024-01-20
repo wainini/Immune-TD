@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0aff7080375dc9488a0585d5ef6fb07, type: 3}
   m_Name: Neutrophil
   m_EditorClassIdentifier: 
-  Cost: 0
-  DeployCooldown: 0
+  Image: {fileID: -730048929, guid: b48aef482003bc64bb3d5a410b28fa62, type: 3}
+  Cost: 10
+  DeployCooldown: 10

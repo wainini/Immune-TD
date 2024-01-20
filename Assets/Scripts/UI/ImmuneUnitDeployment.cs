@@ -23,7 +23,9 @@ public class ImmuneUnitDeployment : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.Instance.CurrentCursorState == CursorState.SelectPlot && UndeployedUnit != null)
+        if((GameManager.Instance.CurrentCursorState == CursorState.SelectPlot 
+            || GameManager.Instance.CurrentCursorState == CursorState.SelectWound)
+            && UndeployedUnit != null)
         {
             UndeployedUnitFollowCursor();
 
@@ -53,6 +55,13 @@ public class ImmuneUnitDeployment : MonoBehaviour
     {
         if (GameManager.Instance.CurrentCursorState == CursorState.SelectPlot) return;
         Unit unit = Instantiate(unitToSpawn).GetComponentInChildren<Unit>();
+        
+        if(unit is Platelet)
+        {
+            EnterPlateletDeployment(unit);
+            return;
+        }
+
         unit.DisableCollider();
         EnterUnitDeployment(unit);
     }
@@ -73,6 +82,10 @@ public class ImmuneUnitDeployment : MonoBehaviour
         UndeployedUnit.transform.position = deployPosition;
         UndeployedUnit.EnableCollider();
 
+        ImmuneCell immuneCell = (ImmuneCell)UndeployedUnit;
+        GameManager.Instance.UseStemCells(immuneCell.GetCellData().Cost);
+
+        UndeployedUnit.SetPlot(plot);
         plot.SetUnit(UndeployedUnit);
 
         ExitUnitDeployment();
@@ -91,8 +104,14 @@ public class ImmuneUnitDeployment : MonoBehaviour
 
     private void ExitUnitDeployment()
     {
-        GameManager.Instance.SetCurrentCursorState(CursorState.Default);
+        GameManager.Instance.SetCurrentCursorStateWithDelay(CursorState.Default, 0.5f);
         UndeployedUnit = null;
+    }
+
+    private void EnterPlateletDeployment(Unit unit)
+    {
+        GameManager.Instance.SetCurrentCursorState(CursorState.SelectWound);
+        UndeployedUnit = unit;
     }
 
 }

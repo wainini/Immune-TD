@@ -18,17 +18,13 @@ public class MenuManager : MonoBehaviour
 
     private void Awake()
     {
-        #region Singleton
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
+
+        if (Instance == null && Instance != this)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
-        #endregion
+
+        Screen.SetResolution(Screen.width, Screen.width / 16 * 9, true);
     }
 
     private void OnEnable()
@@ -46,17 +42,19 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.CurrentCursorState == CursorState.Default)
-        //{
-        //    if (menuStack.Count == 0)
-        //    {
-        //        OpenMenu("PauseMenu");
-        //    }
-        //    else if (menuStack.Count != 0)
-        //    {
-        //        CloseMenu();
-        //    }
-        //}
+        if (SceneManager.GetActiveScene().buildIndex == 0) return;
+        if (GameManager.Instance.IsGameEnded) return;
+        if (Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.CurrentCursorState == CursorState.Default)
+        {
+            if (menuStack.Count == 0)
+            {
+                OpenMenu("PauseMenu");
+            }
+            else if (menuStack.Count != 0)
+            {
+                CloseMenu();
+            }
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

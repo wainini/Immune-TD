@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class Neutrophil : ImmuneCell
 {
+    [SerializeField] private Animator anim;
     [SerializeField] private UnitDetection unitDetection;
+    private SpriteRenderer sr;
 
     private Unit currentTarget;
     private float currentAttackCooldown = 0;
 
+    private void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
+
     private void Update()
     {
-        SearchUnitToAttack();
+        if(coll.enabled)
+        {
+            SearchUnitToAttack();
+        }
     }
     private void FixedUpdate()
     {
@@ -26,7 +36,8 @@ public class Neutrophil : ImmuneCell
     private void AttackCurrentTarget()
     {
         if (currentAttackCooldown > 0) return;
-        Debug.Log(stats.Damage);
+
+        anim.SetTrigger("Attack");
         currentTarget.TakeDamage(stats.Damage);
         currentAttackCooldown = stats.AttackCooldown;
     }
@@ -41,7 +52,7 @@ public class Neutrophil : ImmuneCell
 
         foreach (Unit unit in unitsInRange)
         {
-            if (unit == null) continue;
+            if (unit == null || unit is not Enemy) continue;
 
             if (Vector2.Distance(unit.transform.position, this.transform.position) < nearestDistance)
             {
@@ -52,6 +63,14 @@ public class Neutrophil : ImmuneCell
         if (tempTarget != null)
         {
             currentTarget = tempTarget;
+            if(tempTarget.transform.position.x < transform.position.x)
+            {
+                sr.flipX = true;
+            }
+            else if(tempTarget.transform.position.x > transform.position.x)
+            {
+                sr.flipX = false;
+            }
         }
     }
 }
